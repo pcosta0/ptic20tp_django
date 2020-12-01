@@ -53,3 +53,4 @@ Para instalar y ejecutar en su maquina local siga los siguientes pasos:
 * Ventas: **marykay/marykay**
 * Taller: **mario/mario**
 * Gerencia: **zeus/zeus**
+
