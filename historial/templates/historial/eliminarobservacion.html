@@ -1,0 +1,39 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Eliminar Observacion{% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Eliminar Observacion</h3>
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">
+                    <div>Paciente: {{ paciente }}</div>
+                </h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+            <div>Medico: {{observacion.doctor.last_name|title}}, {{observacion.doctor.first_name|title}}</div>                    
+            <div>Observacion: 
+                <ul>
+                    <li>
+                        <p class="mb-1">{{observacion.observacion}}</p>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <br>
+    <div>Realmente desea eliminar la observacion?</div>
+    <br>
+    <form method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <input type="submit" class="btn btn-primary" value="Eliminar"> 
+        <input type="button" class="btn btn-secondary"  name="cancelar" value="Cancelar" onClick="location.href='{% url 'historial:historialpaciente' id_paciente=paciente.id %}';" />
+                                                                                         
+    </form>
+{% endblock contenido %}
+
+

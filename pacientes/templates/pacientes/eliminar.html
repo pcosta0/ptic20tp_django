@@ -1,0 +1,29 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Eliminar Paciente {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>{{accion}} Paciente</h3>
+    <br>
+    <div>Paciente: <strong> {{ paciente }} </strong></div>
+    <div class="text-info"><small class="text-muted"> DNI: {{paciente.dni}} </small></div>
+    <br>
+
+    {% if accion == 'Eliminar' %}
+        <div>Realmente desea eliminar al paciente?</div>
+    {% else %}
+        <div><strong>El paciente no es eliminable porque tiene registros relacionados</strong></div>
+        <br>
+        <div>Desea desactivarlo? (no aparecerá en los listados)</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <br>
+        <input type="text" name="accion" value="{{accion}}" hidden="True">
+        <input type="submit" class="btn btn-primary" value="{{accion}}"> 
+        <input type="button" class="btn btn-secondary" name="cancelar" value="Cancelar" onClick="window.location.href={% url 'pacientes:listado' %};" />
+    </form>
+{% endblock contenido %}

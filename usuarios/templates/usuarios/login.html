@@ -1,0 +1,33 @@
+{% extends 'paginas/_layout.html' %} 
+
+{% block title %}Trabajo Practico Final - Ingreso{% endblock title %} 
+
+{% block contenido %} 
+    <br>
+    <div class="p-3 h-100 d-flex flex-column">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                <h3 class="cover-heading"><b>Ingreso al sistema</b></h3>
+                {% if mensage %}
+                    <div>{{ mensage }}</div>
+                {% endif %}
+                <p class="lead">
+                <form action="{% url 'usuarios:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" class="form-control" name="usuario" placeholder="ingrese el usuario">
+                    </div>
+                    <div class="form-group">
+                    <label for="clave">Clave</label>
+                    <input type="password" class="form-control" name="clave" placeholder="ingrese la clave">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Ingresar">
+                </form>
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

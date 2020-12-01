@@ -1,0 +1,53 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Turnos{% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Turnos</h3>
+    <p>
+    {% if 'secretaria' in grupos or 'gerencia' in grupos %} 
+    <a class="badge badge-primary " href="{% url 'turnos:crear' %}">nuevo</a>
+    {% endif %}
+    <a class="badge badge-secondary" data-toggle="collapse" href="#cuadrofiltro" role="button" aria-expanded="false" aria-controls="collapseExample"> Filtro: {{filtro}} </a>
+    </p>
+    <div class="collapse" id="cuadrofiltro">
+    <div class="card card-body">
+        <form method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {{ form.as_p }} 
+            <input type="submit" class="btn btn-primary" value="Filtrar"> 
+            <input type="button" class="btn btn-secondary" name="reestablecer" value="Reestablecer" onClick="window.location.href={% url 'turnos:listado' %};" />
+        </form>
+    </div>
+    </div>
+    <p>
+    <ul class="list-group">
+        {% for un_turno in turnos %}
+            <li class="list-group-item"> 
+                <div class="text-info">{{un_turno.fecha}}, {{un_turno.hora_str}}Hs</div>
+                <div>Paciente: <strong>{{ un_turno.paciente }}</strong> <small class="text-muted"> - DNI: {{ un_turno.paciente.dni }} </small> </div>
+                <div>Medico: {{ un_turno.doctor.last_name|title }}, {{ un_turno.doctor.first_name|title }} </div>
+                <div>
+                    {% if un_turno.atendido %} 
+                        <a href="{% url 'turnos:alternaratendido' un_turno.id %}" class="badge badge-success badge-pill">
+                        Atendido
+                    {% else %}
+                        <a href="{% url 'turnos:alternaratendido' un_turno.id %}" class="badge badge-secondary badge-pill">
+                        No atendido
+                    {% endif %}
+                    </a>
+
+                    {% if 'secretaria' in grupos or 'gerencia' in grupos %} 
+                        <a href="{% url 'turnos:modificarturno' un_turno.id %}" class="badge badge-light">modificar</a> <a href="{% url 'turnos:eliminarturno' un_turno.id %}" class="badge badge-light">eliminar</a>  
+                    {% endif %}
+                    {% if 'profesional' in grupos or 'gerencia' in grupos %} 
+                        <a href="{% url 'historial:historialpaciente' un_turno.paciente_id %}" class="badge badge-light">historia clinica</a>
+                    {% endif %}
+                </div>
+            </li>
+        {% empty %}
+            <li> no hay turnos para el filtro seleccionado </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

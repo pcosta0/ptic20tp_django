@@ -1,0 +1,35 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Item {% endblock title %} 
+
+{% block contenido %}
+    <script type="text/javascript">
+			milink = 'hola mundo'
+	</script>
+    <br>
+    <h3> Item de pedido </h3>
+    <div>Producto: <strong>id: {{ producto.id }} - {{ producto.nombre|title }}</strong></div>
+    <br>
+    <form method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <br>
+        <div>Opciones:</div>
+        {% for grupo in opcion %}
+            <fieldset id="grupo">
+            <br>
+            {% for op in grupo %}
+                <input type="radio" id="{{op}}" name="{{grupo}}" value="{{op}}" 
+                {% if op in opcioneselegidas %}
+                checked
+                {% endif %}
+                >
+                <label for="{{op}}">{{op}}</label><br>
+            {% endfor %}
+            </fieldset>
+        {% endfor %}
+    <br>
+    <input type="submit" class="btn btn-primary" value="Guardar"> 
+    <input type="button" class="btn btn-secondary"  name="cancelar" value="Cancelar" onClick="location.href='{% url 'pedidos:verpedido' id_pedido=id_pedidoactual %}';" />  
+    </form>
+{% endblock contenido %}

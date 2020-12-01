@@ -1,0 +1,19 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Eliminar Turno{% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Eliminar Turno</h3>
+    <br>
+    <div>Realmente desea eliminar el turno del paciente <strong>{{ turno.paciente }}</strong> con 
+        <strong>Dr {{ turno.doctor.last_name|title }}, {{ turno.doctor.first_name|title }} </strong>
+        para el dia {{ turno.fecha }} a la hora {{ turno.hora_str }} ?</div>
+    <br>
+    <form method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <input type="submit" class="btn btn-primary" value="Eliminar"> 
+        <input type="button" class="btn btn-secondary" name="cancelar" value="Cancelar" onClick="window.location.href={% url 'turnos:listado' %};" />
+    </form>
+{% endblock contenido %}

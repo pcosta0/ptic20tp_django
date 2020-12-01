@@ -1,0 +1,28 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Seleccionar Item{% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Seleccionar Item para el pedido</h3>
+    <p>
+    </p>
+    <a href="{% url 'pedidos:verpedido' id_pedidoactual %}" class="badge badge-primary">volver a pedido</a>
+    <br><br>
+    <ul class="list-group">
+        {% for item in items %}
+            <li class="list-group-item"> 
+                Id: {{ item.id }} - <strong>{{ item|title }}</strong>
+                <div>Opciones: {{ item.opcion|title }}</div>
+                <div>
+                    <a href="{% url 'pedidos:agregaritem' id_pedidoactual item.id %}" class="badge badge-secondary">agregar</a>
+                </div>
+            </li>
+
+        {% empty %}
+            <li> no hay items </li>
+        {% endfor %}
+    <ul>
+
+
+{% endblock contenido %}

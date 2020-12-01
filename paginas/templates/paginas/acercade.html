@@ -1,0 +1,97 @@
+<!-- templates/inicio.html -->
+{% extends 'paginas/_layout.html' %} 
+
+{% block title %}Trabajo Practico Final - Acerca de{% endblock title %} 
+
+{% block contenido %} 
+  <style>
+    {% if 'profesional' in grupos %}
+      #spro { background-color: #ffffbb; }
+    {% endif %}
+    {% if 'secretaria' in grupos %}
+      #ssec { background-color: #ffffbb; }
+    {% endif %}
+    {% if 'ventas' in grupos %}
+      #svta { background-color: #ffffbb; }
+    {% endif %}
+    {% if 'taller' in grupos %}
+      #stal { background-color: #ffffbb; }
+    {% endif %}
+    {% if 'gerencia' in grupos %}
+      #sger { background-color: #ffffbb; }
+    {% endif %}
+  </style>
+  
+  <br>
+  <h3 class="cover-heading"><b>Desarrollo Web Full Stack con Python y JavaScript
+</b></h3>
+  <p class="lead">
+    TRABAJO FINAL CURSO 2020
+  </p>
+
+  <h3>Sesión actual</h3>
+  {% if autenticado %}
+    <div>Autenticado como: {{ request.user.last_name|title }},  {{ request.user.first_name|title }}. Grupo: {{ grupos_v|title }}.</div>
+    <div>Último ingreso: {{ request.user.last_login }}.</div>
+  {% else %}
+      <div>No autenticado</div>
+  {% endif %} 
+
+  <div>
+    <br>
+    <h3>Enunciado del Problema a Resolver</h3>
+    <p class="text-justify">Una clínica de Optometría necesita un sistema web en Django que le permita gestionar el
+    diagnóstico de sus pacientes y la venta de los productos Ópticos para los mismos. Para ello
+    se requiere: </p>
+    <ol class="text-justify">
+      <li>
+        Un sistema con un login de usuario con los siguientes roles:
+        <ol class="text-justify" style="list-style-type:lower-alpha">
+          <li  id='ssec'>Secretaría</li>
+          <li  id='spro'>Profesional medico</li>
+          <li id='svta'>Ventas</li>
+          <li id='stal'>Taller</li>
+          <li id='sger'>Gerencia</li>
+        </ol>  
+      </li>
+      <li>
+        El sistema gestionará tres Modelos esenciales:
+        <ol class="text-justify" style="list-style-type:lower-alpha">
+          <li id='ssec'>Turnos</li>
+          <li id='svta'>Pedidos</li>
+          <li id='ssec'>Pacientes</li>
+        </ol>
+      </li>
+      <li id='ssec'>El rol de Secretaría permite agregar, modificar o eliminar los turnos de los Pacientes.</span></li>
+      <span id='spro'>
+      <li id='spro'>Cada Paciente tiene su historial médico (solo el Profesional médico puede agregar
+          Observaciones al historial médico).</li>
+      <li id='spro'>Cada Profesional médico puede ver el listado de Pacientes filtrando por día, mes o año.</span></li>
+      <li id='spro'>El Profesional médico solo puede ver los Pacientes asignados a él.</li>
+      <li id='svta'>El rol de Ventas puede generar un pedido para el Paciente, donde detalla el Producto
+          que quiere adquirir, el precio (pueden ser más de un producto), un subtotal, tipo de
+          pago (tarjeta de crédito, debido, billetera virtual o efectivo).
+        <ol class="text-justify" style="list-style-type:lower-alpha">
+          <li>El producto tiene nombre, si está clasificado como Lente tendrá la opción de
+              Lejos/Cerca, Izquierda/Derecha, si incluye Armazón o no.</li>
+          <li>Una vez que se genera el pedido queda en estado “Pendiente”.</li>
+          <li>Luego el rol de Ventas puede cambiar el estado a “Pedido” o mandarlo a “Taller”.</li>
+        </ol>
+      </li>
+      <li id='stal'>El rol de Taller solo visualiza la lista de pedidos (con todos los detalles del producto sin
+          los precios). El Taller puede confirmar cambiando el estado del pedido a “Finalizado”.</li>
+      <li id='sger'>Gerencia puede visualizar todos los datos y necesita los siguientes reportes:
+        <ol class="text-justify" style="list-style-type:lower-alpha">
+          <li>Pacientes que asistieron a los turnos en la semana/mes.</li>
+          <li>Pacientes que no asistieron a los turnos en la semana/mes.</li>
+          <li>Pacientes que hicieron por lo menos un Pedido en la semana/mes.</li>
+          <li>Productos más vendidos en el mes.</li>
+          <li>Ventas totales por mes clasificadas por Vendedores.</li>
+        </ol>
+        
+      </li>
+    </ol>
+
+  </div>
+  <br><br>
+{% endblock contenido %}

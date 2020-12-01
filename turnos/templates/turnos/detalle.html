@@ -1,0 +1,16 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - {{accion}} Turno {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>{{ accion }} Turno</h3>
+    <br>
+    <form method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <br>
+        <input type="submit" class="btn btn-primary" value="Guardar"> 
+        <input type="button" class="btn btn-secondary"  name="cancelar" value="Cancelar" onClick="window.location.href={% url 'turnos:listado' %};" />
+    </form>
+{% endblock contenido %}

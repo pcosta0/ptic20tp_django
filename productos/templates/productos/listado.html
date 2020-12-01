@@ -1,0 +1,28 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Productos{% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Productos</h3>
+    <p>
+        <a class="badge badge-primary " href="{% url 'productos:crearproducto' %}">nuevo</a>
+    </p>
+    <ul class="list-group">
+        {% for producto in productos %}
+            <li class="list-group-item"> 
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">id: {{ producto.id }} - {{ producto|title }}</h5> 
+                    <small class="text-muted">Precio: ${{ producto.precio|stringformat:".2f" }}</small>
+                </div>
+                <div>Opciones: {{ producto.opcion|capfirst }}</div>
+                <div>
+                    <a href="{% url 'productos:modificarproducto' producto.id %}" class="badge badge-secondary">modificar</a>
+                    <a href="{% url 'productos:eliminarproducto' producto.id %}" class="badge badge-secondary">eliminar</a>
+                </div>
+            </li>
+        {% empty %}
+            <li> no hay productos </li>
+        {% endfor %}
+    <ul>
+{% endblock contenido %}

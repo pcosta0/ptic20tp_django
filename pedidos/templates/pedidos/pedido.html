@@ -1,0 +1,52 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Pedido {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3> Pedido </h3>
+    <a href="{% url 'pedidos:modificarpedido' 0 %}" class="badge badge-primary">terminar edicion de pedido</a>
+    <br><br>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Id: {{infopedidoactual.id}} - Paciente: {{infopedidoactual.paciente|title}}</h5>
+                <small class="text-muted">Fecha: {{infopedidoactual.fechahora|date:"D d M Y"}}</small>
+            </div>
+            <div class="mb-1">Vendedor: {{ infopedidoactual.vendedor.first_name|title }}, {{ infopedidoactual.vendedor.last_name|title }}</div>
+            <div class="mb-1">Estado: {{ infopedidoactual.estado_str|title }}</div>
+            <div class="mb-1">Tipo de pago: {{ infopedidoactual.tipopago_str|title }}</div>
+            {% if True %}
+            <div>
+                <a href="{% url 'pedidos:modificarpedido' infopedidoactual.id %}" class="badge badge-secondary">mofificar info</a>
+            </div> 
+            {% endif %}
+        </li>
+    </ul>
+    <br>
+
+    <ul class="list-group">
+        <li class="list-group-item list-group- flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Items en pedido: </h5>
+                <small class="text-muted"> {{total}} </small>
+            </div>
+            <div class="mb-1">
+            <a href="{% url 'pedidos:seleccionaritem' %}" class="badge badge-secondary">agregar item</a>
+            </div>
+            <ul>
+                {% for item_pedido in pedidos_det %}
+                <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="mb-1">{{item_pedido}} </div>
+                        <small class="text-muted">${{item_pedido.precio}} x {{item_pedido.cantidad}} unidad(es) : Subtotal: ${{ item_pedido.subtotal|stringformat:".2f" }}</small>
+                    </div>
+                    <a href="{% url 'pedidos:modificaritem' id_pedido=infopedidoactual.id id_itempedido=item_pedido.id %}" class="badge badge-secondary">modificar</a>
+                </li>
+                {% empty %}
+                    no hay items en el pedido
+                {% endfor %}
+            </ul> 
+        </li>
+    </ul>
+{% endblock contenido %}

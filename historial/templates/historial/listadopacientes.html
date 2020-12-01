@@ -1,0 +1,33 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Historial Clinico{% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Historiales de Pacientes</h3>
+    <div>Medico: {{usuario.last_name|title}}, {{usuario.first_name|title}}</div>
+    <div class="collapse" id="cuadrofiltro">
+    <div class="card card-body">
+        <form method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {{ form.as_p }} 
+            <input type="submit" class="btn btn-primary" value="Filtrar"> 
+            <input type="button" class="btn btn-secondary" name="reestablecer" value="Reestablecer" onClick="window.location.href={% url 'turnos:listado' %};" />
+        </form>
+    </div>
+    </div>
+    <p>
+
+    <ul class="list-group">
+        {% for un_paciente in pacientes %}
+            <li class="list-group-item"> 
+                <div>Paciente id: {{un_paciente.id}} - <strong>{{un_paciente.apellido}}, {{un_paciente.nombre}}</strong> - dni: {{un_paciente.dni}}</div>
+                <div>
+                    <a href="{% url 'historial:historialpaciente' un_paciente.id %}" class="badge badge-light">historia clinica</a>
+                </div>
+            </li>
+        {% empty %}
+            <li> no hay pacientes atendidos </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

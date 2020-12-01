@@ -1,0 +1,57 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %} Trabajo Practico Final - {{accion}} Informes {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Informes</h3>
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Pacientes que asistieron a los turnos.</h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+            <div> 
+                <a href="{% url 'gerencia:informe' 1 %}" class="badge badge-secondary">ultima semana</a> 
+                <a href="{% url 'gerencia:informe' 2 %}" class="badge badge-secondary">mes</a> 
+            </div> 
+        </li>
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Pacientes que no asistieron a los turnos.</h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+            <div> 
+                <a href="{% url 'gerencia:informe' 3 %}" class="badge badge-secondary">ultima semana</a> 
+                <a href="{% url 'gerencia:informe' 4 %}" class="badge badge-secondary">mes</a> 
+            </div> 
+        </li>
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Pacientes que hicieron por lo menos un Pedido en la semana/mes.</h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+            <div> 
+                <a href="{% url 'gerencia:informe' 5 %}" class="badge badge-secondary">ultima semana</a> 
+                <a href="{% url 'gerencia:informe' 6 %}" class="badge badge-secondary">mes</a> 
+            </div> 
+        </li>
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Productos más vendidos en el mes.</h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+            <div> 
+                <a href="{% url 'gerencia:informe' 7 %}" class="badge badge-secondary">ver informe</a> 
+            </div> 
+        </li>
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Ventas totales por mes clasificadas por Vendedores.</h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+            <div> <a href="{% url 'gerencia:informe' 8 %}" class="badge badge-secondary">ver informe</a> </div> 
+        </li>
+    </ul>
+{% endblock contenido %}

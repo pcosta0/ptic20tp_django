@@ -1,0 +1,30 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %} Trabajo Practico Final - Pacientes {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Pacientes</h3>
+    <div>
+        <a href="{% url 'pacientes:crear' %}" class="badge badge-primary">nuevo</a> 
+    </div>
+    <br>
+
+    <ul class="list-group">
+        {% for un_paciente in pacientes %}
+            <li class="list-group-item"> 
+                <div>
+                    Paciente: <strong>{{ un_paciente }}</strong>
+                    {% if not un_paciente.activo %}
+                    <small class="text-muted"> (inactivo) </small>
+                    {% endif %}
+                </div>
+                <div class="text-info"><small class="text-muted"> DNI: {{un_paciente.dni}} </small></div>
+                <a href="{% url 'pacientes:modificarpaciente' un_paciente.id %}" class="badge badge-secondary">modificar</a> 
+                <a href="{% url 'pacientes:eliminarpaciente' un_paciente.id %}" class="badge badge-secondary">eliminar</a>  
+            </li>
+        {% empty %}
+            <li> no hay pacientes </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

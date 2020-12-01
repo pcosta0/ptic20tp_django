@@ -1,0 +1,23 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - {{ accion }} Información de Pedido {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>{{ accion }} Pedido </h3>
+    <br>
+    <ul>
+    <form method = "POST" enctype="multipart/form-data"> 
+        {% csrf_token %} 
+        {{ form.as_p }} 
+        <br>
+        <input type="submit" class="btn btn-primary" value="Guardar"> 
+        <input type="button" class="btn btn-secondary"  name="cancelar" value="Cancelar" onClick=
+        {% if id_pedidoactual %}
+        "location.href='{% url 'pedidos:verpedido' id_pedido=id_pedidoactual %}';" 
+        {% else %}
+        "history.back();;" 
+        {% endif %}
+        />
+    </form>
+{% endblock contenido %}

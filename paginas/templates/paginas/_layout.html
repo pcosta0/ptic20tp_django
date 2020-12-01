@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <title>
+      {% block title %} 
+        titulo de pagina 
+      {% endblock title %}
+    </title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light justify-content-between">
+      <a class="navbar-brand" href={% url 'paginas:inicio' %}>
+        {% load static %}
+        <img src="{% static 'img/icono.png' %}" width="30" height="30" alt="">
+      </a>
+      <a class="navbar-brand" href={% url 'paginas:inicio' %}>Clinica Optométrica Potter</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar0" aria-controls="navbar0" aria-expanded="true" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbar0">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'paginas:inicio' %}">inicio<span class="sr-only">(current)</span></a>
+          </li>
+          
+          {% if 'ventas' in grupos or 'gerencia' in grupos %} 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'productos:listado' %}">productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pedidos:listado' %}">pedidos</a>
+            </li>
+            {% if id_pedidoactual %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pedidos:verpedido' id_pedidoactual %}"><strong>pedido</strong></a>
+              </li>
+            {% endif %}
+          {% endif %}
+
+          {% if 'secretaria' in grupos or 'gerencia' in grupos %} 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pacientes:listado' %}">pacientes</a>
+            </li>
+          {% endif %}
+          {% if 'secretaria' in grupos or 'profesional' in grupos  or 'gerencia' in grupos %} 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'turnos:listado' %}">turnos</a>
+            </li>
+          {% endif %}
+
+          {% if 'profesional' in grupos or 'gerencia' in grupos %} 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'historial:listado' %}">historial clinico</a>
+            </li>
+          {% endif %}
+
+          {% if 'taller' in grupos or 'gerencia' in grupos %} 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'taller:listado' %}">pedidos taller</a>
+            </li>
+          {% endif %}
+
+          {% if 'gerencia' in grupos%} 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'gerencia:informes' %}">informes</a>
+            </li>
+          {% endif %}
+
+          {% if autenticado %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'usuarios:logout' %}">logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'usuarios:login' %}">login</a>
+            </li>
+          {% endif %}
+          
+          {% comment %} <li class="nav-item">
+            <a class="nav-link disabled" href="#">inactivo</a>
+          </li> 
+          {% endcomment %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'paginas:acercade' %}">
+            {% if user.is_authenticated %}
+              <strong>{{ usuario }}</strong>
+            {% else %}
+              acerca de
+            {% endif %}
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">{% block contenido %} {% endblock contenido %}</div>
+
+
+    <footer class="page-footer font-small mdb-color pt-4">
+      <div class="container text-center text-md-left">
+        <hr>
+        <div class="row d-flex align-items-center">
+          <div class="col-md-7 col-lg-8">
+            <p class="text-center text-md-left">© 2020 <a href={% url 'paginas:inicio' %}>Clinica Potter</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

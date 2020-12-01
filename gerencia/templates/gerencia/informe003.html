@@ -1,0 +1,22 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - Asistencia de Pacientes a sus turnos {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>{{ titulo }}</h3>
+    <a href="{% url 'gerencia:informes' %}" class="badge badge-primary">ir a informes</a>
+    <br><br>
+    <ul class="list-group">
+        {% for registro in informe %}
+            <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"> {{ registro.item__nombre }}</h5>
+                    <small class="text-muted"> Cantidad vendida: {{ registro.cantidad_total }} </small>
+            </li>
+        {% empty %}
+            <li> no hay resultados </li>
+        {% endfor %}
+    </ul>
+
+{% endblock contenido %}

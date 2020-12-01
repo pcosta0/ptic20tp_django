@@ -1,0 +1,38 @@
+{% extends "paginas/_layout.html" %}
+
+{% block title %}Trabajo Practico Final - {{accion}} Historial clinico de paciente {% endblock title %} 
+
+{% block contenido %}
+    <br>
+    <h3>Historial de {{ paciente }} - dni: {{ paciente.dni }}</h3>
+    <a class="badge badge-primary " href="{% url 'historial:crearobservacion' paciente.id %}">agregar observacion</a>
+    <br><br>
+    <ul class="list-group">
+    {% for observacion in observaciones %}
+        <li class="list-group-item list-group-item-action flex-column align-items-start"> 
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Medico: {{observacion.doctor.last_name|title}}, {{observacion.doctor.first_name|title}}</h5>
+                <small class="text-muted">{{observacion.fecha}} </small>
+            </div>
+
+            <div>Observacion: 
+                <br>
+                <ul>
+                    <li>
+                        <p class="mb-1">{{observacion.observacion}}</p>
+                    </li>
+                </ul>
+            </div>
+
+            {% if observacion.doctor.id == id_usuario %}
+            <div>
+                <a href="{% url 'historial:modificarobservacion' observacion.id %}" class="badge badge-secondary">modificar</a>
+                <a href="{% url 'historial:eliminarobservacion' observacion.id %}" class="badge badge-secondary">eliminar</a>
+            </div> 
+            {% endif %}
+        </li>
+    {% empty %}
+        <li> no hay observaciones para el paciente </li>
+    {% endfor %}
+    </ul>
+{% endblock contenido %}
