@@ -49,7 +49,7 @@ Para instalar y ejecutar en su maquina local siga los siguientes pasos:
  
 4. Ingrese al sistema con cualquier combinación **usuario/clave** de los siguientes roles ya creados en la base de datos de ejemplo:
 * Secretaría:  **jkrowling/jkrowling**
-* Profesional Médico: **harryp/harryp, hermioneg/hermioneg o rweasley/rweasley**
+* Profesional Médico: **harryp/harryp, hermioneg/hermioneg** o **rweasley/rweasley**
 * Ventas: **marykay/marykay**
 * Taller: **mario/mario**
 * Gerencia: **zeus/zeus**
